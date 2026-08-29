@@ -47,3 +47,12 @@ async def read_author_category_by_query(author: str, category: str):
 async def create_book(new_book=Body()):
     BOOKS.append(new_book)
     return new_book
+
+
+@app.put("/books/update_book")
+async def update_book(updated_book=Body()):
+    for index, book in enumerate(BOOKS):
+        if book.get('title').casefold() == updated_book.get('title').casefold():
+            BOOKS[index] = updated_book
+            return updated_book
+    return {"error": "Book not found"}
