@@ -55,4 +55,13 @@ async def update_book(updated_book=Body()):
         if book.get('title').casefold() == updated_book.get('title').casefold():
             BOOKS[index] = updated_book
             return updated_book
+    return {"error": "Book not found "}
+
+
+@app.delete("/books/delete_book")
+async def delete_book(book_title: str): 
+    for index, book in enumerate(BOOKS):
+        if book.get('title').casefold() == book_title.casefold():
+            deleted_book = BOOKS.pop(index)
+            return deleted_book
     return {"error": "Book not found"}
