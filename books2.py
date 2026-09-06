@@ -26,6 +26,17 @@ class BookRequest(BaseModel):
     description: str = Field(min_length=1, max_length=200)
     rating: int = Field(ge=0, le=5)
 
+    model_config = {
+        "json_schema_extra": {
+            "example": {
+                "title": "New Book Title",
+                "author": "New Book Author",
+                "description": "New Book Description",
+                "rating": 4
+            }
+        }
+    }
+
 BOOKS = [
     Book(1, 'Computer Science', 'CodingWithBass', 'Description One', 5),
     Book(2, 'FastAPI', 'CodingWithBass', 'Description Two', 4),
