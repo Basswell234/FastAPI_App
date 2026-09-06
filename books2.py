@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from typing import Optional
+from fastapi import FastAPI, Body
 from pydantic import BaseModel, Field
 
 app = FastAPI()
@@ -19,10 +20,11 @@ class Book:
         self.rating = rating
 
 class BookRequest(BaseModel):
-    title: str
-    author: str
-    description: str
-    rating: int
+    Id: Optional[int] = Field(description="Book ID is not needed on create", default=None)
+    title: str = Field(min_length=1, max_length=100)
+    author: str = Field(min_length=1, max_length=100)
+    description: str = Field(min_length=1, max_length=200)
+    rating: int = Field(ge=0, le=5)
 
 BOOKS = [
     Book(1, 'Computer Science', 'CodingWithBass', 'Description One', 5),
