@@ -30,3 +30,8 @@ BOOKS = [
 @app.get("/books")
 async def read_all_books():
     return BOOKS
+
+@app.post("/create-book")
+async def create_book(book_request=Body()):
+    BOOKS.append(book_request)
+    return book_request
